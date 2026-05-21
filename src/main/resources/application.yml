@@ -1,0 +1,28 @@
+spring:
+  kafka:
+    bootstrap-servers: localhost:9092
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+    consumer:
+      group-id: global-consumer
+      # Disable auto-commit for manual offset management
+      enable-auto-commit: false
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      max-poll-records: 100
+      session-timeout-ms: 30000
+    listener:
+      # CRITICAL: Set ack-mode to MANUAL for explicit offset commits
+      ack-mode: manual
+      poll-timeout: 3000
+      concurrency: 3
+
+app:
+  kafka:
+    default-topic: pharmacy-orders
+    # ✅ List all topics you want to consume
+    consumer-topics: pharmacy-orders
+    partitions: 6
+    replication-factor: 1
