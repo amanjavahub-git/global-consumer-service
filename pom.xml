@@ -48,6 +48,12 @@
 			<version>1.18.32</version>
 			<scope>provided</scope>
 		</dependency>
+<!-- Temporal SDK -->
+		<dependency>
+			<groupId>io.temporal</groupId>
+			<artifactId>temporal-sdk</artifactId>
+			<version>1.19.1</version>
+		</dependency>
 	</dependencies>
 
 	<build>

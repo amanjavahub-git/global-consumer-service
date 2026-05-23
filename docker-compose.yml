@@ -1,0 +1,37 @@
+version: '3.5'
+services:
+  temporal:
+    image: temporalio/auto-setup:latest
+    container_name: temporal
+    ports:
+      - "7233:7233"
+    environment:
+      - DB=postgresql
+      - DB_PORT=5432
+      - POSTGRES_USER=temporal
+      - POSTGRES_PASSWORD=temporal
+      - POSTGRES_DB=temporal
+      - POSTGRES_SEEDS=temporal-postgres
+    depends_on:
+      - postgres
+
+  postgres:
+    image: postgres:13
+    container_name: temporal-postgres
+    environment:
+      - POSTGRES_USER=temporal
+      - POSTGRES_PASSWORD=temporal
+      - POSTGRES_DB=temporal
+    ports:
+      - "5432:5432"
+
+  temporal-web:
+    image: temporalio/web:latest
+    container_name: temporal-web
+    ports:
+      - "9090:8088"
+    environment:
+      - TEMPORAL_GRPC_ENDPOINT=temporal:7233
+      - TEMPORAL_WEB_PORT=8088
+    depends_on:
+      - temporal

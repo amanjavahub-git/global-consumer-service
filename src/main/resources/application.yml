@@ -22,7 +22,9 @@ spring:
 app:
   kafka:
     default-topic: pharmacy-orders
-    # ✅ List all topics you want to consume
+    #  List all topics you want to consume
     consumer-topics: pharmacy-orders
     partitions: 6
     replication-factor: 1
+server:
+  port: 8080
